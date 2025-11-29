@@ -15,20 +15,26 @@ import {
   Facebook,
   Instagram,
   Linkedin,
+  Twitter,
 } from "lucide-react";
 import { useTranslation } from "@/contexts/TranslationContext";
 import { Link } from "react-router-dom";
 import ToorriiLogo from "@/assets/toorrii-logo.png";
 
-// Social contact information with icons
-const contactInfo = [
-  { icon: Mail, label: "Email", value: "contact@toorrii.com", href: "mailto:contact@toorrii.com" },
-  { icon: MapPin, label: "Address", value: "Algiers, Algeria", href: "#" },
-  { icon: Clock, label: "Hours", value: "9:00 - 17:00", href: "#" },
-  { icon: Globe, label: "Website", value: "www.toorrii.com", href: "https://www.toorrii.com" },
-  { icon: Facebook, label: "Facebook", value: "/toorrii", href: "https://facebook.com/toorrii" },
-  { icon: Instagram, label: "Instagram", value: "@toorrii", href: "https://instagram.com/toorrii" },
-  { icon: Linkedin, label: "LinkedIn", value: "/company/toorrii", href: "https://linkedin.com/company/toorrii" },
+// Contact information - first column
+const contactInfoPrimary = [
+  { icon: Mail, label: "Email", value: "contact@toorrii.com", href: "mailto:contact@toorrii.com", color: "text-red-500", bg: "bg-red-50 hover:bg-red-100" },
+  { icon: MapPin, label: "Address", value: "Algiers, Algeria", href: "#", color: "text-blue-500", bg: "bg-blue-50 hover:bg-blue-100" },
+  { icon: Clock, label: "Hours", value: "9:00 - 17:00", href: "#", color: "text-orange-500", bg: "bg-orange-50 hover:bg-orange-100" },
+];
+
+// Social links - second column
+const socialLinks = [
+  { icon: Globe, label: "Website", value: "www.toorrii.com", href: "https://www.toorrii.com", color: "text-primary", bg: "bg-primary/10 hover:bg-primary/20" },
+  { icon: Facebook, label: "Facebook", value: "/toorrii", href: "https://facebook.com/toorrii", color: "text-blue-600", bg: "bg-blue-50 hover:bg-blue-100" },
+  { icon: Instagram, label: "Instagram", value: "@toorrii", href: "https://instagram.com/toorrii", color: "text-pink-600", bg: "bg-pink-50 hover:bg-pink-100" },
+  { icon: Linkedin, label: "LinkedIn", value: "/company/toorrii", href: "https://linkedin.com/company/toorrii", color: "text-blue-700", bg: "bg-blue-50 hover:bg-blue-100" },
+  { icon: Twitter, label: "X", value: "@toorrii", href: "https://x.com/toorrii", color: "text-foreground", bg: "bg-muted hover:bg-muted/80" },
 ];
 
 /**
@@ -51,14 +57,14 @@ const Footer = () => {
   return (
     <footer className="bg-background border-t border-border">
       <div className="container mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Logo and Description Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="lg:col-span-2"
+            className="lg:col-span-1"
           >
             <Link to="/" className="inline-block mb-6">
               <motion.div 
@@ -73,7 +79,7 @@ const Footer = () => {
                 />
               </motion.div>
             </Link>
-            <p className="text-muted-foreground leading-relaxed max-w-md">
+            <p className="text-muted-foreground leading-relaxed">
               {t("footer.description")}
               <br /><br />
               Toorrii est une solution innovante de gestion de files d'attente qui transforme l'expérience client en offrant un système intelligent et efficace pour gérer les flux de visiteurs dans divers établissements.
@@ -119,13 +125,12 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="lg:col-span-2"
           >
             <h3 className="font-semibold text-foreground mb-4">
               {t("footer.contactUs")}
             </h3>
             <ul className="space-y-4">
-              {contactInfo.map((contact, index) => (
+              {contactInfoPrimary.map((contact, index) => (
                 <motion.li
                   key={contact.label}
                   initial={{ opacity: 0, x: -10 }}
@@ -140,14 +145,55 @@ const Footer = () => {
                     href={contact.href}
                     target={contact.href.startsWith('http') ? '_blank' : undefined}
                     rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="flex items-center space-x-3 rtl:space-x-reverse text-muted-foreground hover:text-primary transition-colors group"
+                    className="flex items-center space-x-3 rtl:space-x-reverse group"
                   >
-                    <div className="w-9 h-9 bg-secondary/50 group-hover:bg-primary/20 rounded-lg flex items-center justify-center transition-colors flex-shrink-0">
-                      <contact.icon className="w-4 h-4" />
+                    <div className={`w-9 h-9 ${contact.bg} rounded-lg flex items-center justify-center transition-colors flex-shrink-0`}>
+                      <contact.icon className={`w-4 h-4 ${contact.color}`} />
                     </div>
                     <div className="flex flex-col">
                       <span className="text-xs text-muted-foreground/70">{contact.label}</span>
-                      <span className="text-sm font-medium">{contact.value}</span>
+                      <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{contact.value}</span>
+                    </div>
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Social Links Column */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="font-semibold text-foreground mb-4">
+              Réseaux Sociaux
+            </h3>
+            <ul className="space-y-4">
+              {socialLinks.map((social, index) => (
+                <motion.li
+                  key={social.label}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.3 + index * 0.05,
+                  }}
+                  viewport={{ once: true }}
+                >
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-3 rtl:space-x-reverse group"
+                  >
+                    <div className={`w-9 h-9 ${social.bg} rounded-lg flex items-center justify-center transition-colors flex-shrink-0`}>
+                      <social.icon className={`w-4 h-4 ${social.color}`} />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs text-muted-foreground/70">{social.label}</span>
+                      <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{social.value}</span>
                     </div>
                   </a>
                 </motion.li>
@@ -173,20 +219,22 @@ const Footer = () => {
             <span>© 2025 Toorrii. All rights reserved.</span>
           </motion.div>
           <div className="flex items-center space-x-6 mt-4 md:mt-0">
-            <motion.a
-              href="#"
-              className="text-muted-foreground hover:text-primary text-sm transition-colors"
-              whileHover={{ y: -2 }}
-            >
-              {t("footer.privacyPolicy")}
-            </motion.a>
-            <motion.a
-              href="#"
-              className="text-muted-foreground hover:text-primary text-sm transition-colors"
-              whileHover={{ y: -2 }}
-            >
-              {t("footer.termsOfService")}
-            </motion.a>
+            <motion.div whileHover={{ y: -2 }}>
+              <Link
+                to="/privacy-policy"
+                className="text-muted-foreground hover:text-primary text-sm transition-colors"
+              >
+                {t("footer.privacyPolicy")}
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ y: -2 }}>
+              <Link
+                to="/terms-of-service"
+                className="text-muted-foreground hover:text-primary text-sm transition-colors"
+              >
+                {t("footer.termsOfService")}
+              </Link>
+            </motion.div>
           </div>
         </motion.div>
       </div>
