@@ -2,9 +2,9 @@ export interface ContactData {
   nom?: string;
   email: string;
   telephone: string;
-  adresse: string;
-  ville: string;
-  wilaya: string;
+  adresse?: string;
+  ville?: string;
+  wilaya?: string;
   horaires: string;
   site_web?: string;
   facebook?: string;
@@ -13,4 +13,6 @@ export interface ContactData {
   linkedin?: string;
   x?: string;
   message_acceuil?: string;
+  date_creation?: string;
+  historique_modifications?: any;
 }

@@ -8,9 +8,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useTranslation } from "@/contexts/TranslationContext";
 import { FileText, Scale, Shield, AlertCircle } from "lucide-react";
+import { useTermsOfService } from "@/hooks/useTermsOfService";
 
 const TermsOfService = () => {
   const { t } = useTranslation();
+  const { data: termsData } = useTermsOfService();
 
   const sections = [
     {
@@ -52,14 +54,16 @@ const TermsOfService = () => {
               <FileText className="w-10 h-10 text-primary" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              {t("terms.title")}
+              {termsData?.titre || t("terms.title")}
             </h1>
             <p className="text-xl text-muted-foreground mb-4">
               {t("terms.subtitle")}
             </p>
-            <p className="text-sm text-muted-foreground">
-              {t("terms.lastUpdated")}
-            </p>
+            {termsData?.version && (
+              <p className="text-sm text-muted-foreground">
+                {t("terms.lastUpdated")} - Version {termsData.version}
+              </p>
+            )}
           </motion.div>
         </div>
       </section>
@@ -68,17 +72,32 @@ const TermsOfService = () => {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Introduction */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-12 p-8 bg-card border border-border rounded-2xl"
-          >
-            <h2 className="text-2xl font-bold mb-4">{t("terms.introduction.title")}</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              {t("terms.introduction.content")}
-            </p>
-          </motion.div>
+          {termsData?.contenu && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mb-12 p-8 bg-card border border-border rounded-2xl"
+            >
+              <div className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                {termsData.contenu}
+              </div>
+            </motion.div>
+          )}
+          
+          {!termsData?.contenu && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mb-12 p-8 bg-card border border-border rounded-2xl"
+            >
+              <h2 className="text-2xl font-bold mb-4">{t("terms.introduction.title")}</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                {t("terms.introduction.content")}
+              </p>
+            </motion.div>
+          )}
 
           {/* Main Sections */}
           <div className="space-y-8">
