@@ -81,8 +81,6 @@ const Footer = () => {
             </Link>
             <p className="text-muted-foreground leading-relaxed">
               {t("footer.description")}
-              <br /><br />
-              Toorrii est une solution innovante de gestion de files d'attente qui transforme l'expérience client en offrant un système intelligent et efficace pour gérer les flux de visiteurs dans divers établissements.
             </p>
           </motion.div>
 
