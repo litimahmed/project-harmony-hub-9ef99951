@@ -8,20 +8,27 @@
 // Import necessary libraries and components.
 import { motion } from "framer-motion";
 import {
-  Calendar,
-  Github,
-  Twitter,
-  Linkedin,
   Mail,
+  MapPin,
+  Clock,
+  Globe,
+  Facebook,
+  Instagram,
+  Linkedin,
 } from "lucide-react";
 import { useTranslation } from "@/contexts/TranslationContext";
+import { Link } from "react-router-dom";
+import ToorriiLogo from "@/assets/toorrii-logo.png";
 
-// An array of social media links to be displayed in the footer.
-const socialLinks = [
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Mail, href: "#", label: "Email" },
+// Social contact information with icons
+const contactInfo = [
+  { icon: Mail, label: "Email", value: "contact@toorrii.com", href: "mailto:contact@toorrii.com" },
+  { icon: MapPin, label: "Address", value: "Algiers, Algeria", href: "#" },
+  { icon: Clock, label: "Hours", value: "9:00 - 17:00", href: "#" },
+  { icon: Globe, label: "Website", value: "www.toorrii.com", href: "https://www.toorrii.com" },
+  { icon: Facebook, label: "Facebook", value: "/toorrii", href: "https://facebook.com/toorrii" },
+  { icon: Instagram, label: "Instagram", value: "@toorrii", href: "https://instagram.com/toorrii" },
+  { icon: Linkedin, label: "LinkedIn", value: "/company/toorrii", href: "https://linkedin.com/company/toorrii" },
 ];
 
 /**
@@ -30,45 +37,22 @@ const socialLinks = [
  */
 const Footer = () => {
   // Hook to get the translation function.
-  const { t } = useTranslation();
+  const { t, isRTL } = useTranslation();
   
-  // An object containing the footer links, categorized for better organization.
-  const footerLinks = {
-    [t("footer.product")]: [
-      t("footer.features"),
-      t("footer.pricing"),
-      t("footer.api"),
-      t("footer.integrations"),
-      t("footer.security")
-    ],
-    [t("footer.company")]: [
-      t("footer.about"),
-      t("footer.blog"),
-      t("footer.careers"),
-      t("footer.press"),
-      t("footer.partners")
-    ],
-    [t("footer.resources")]: [
-      t("footer.documentation"),
-      t("footer.helpCenter"),
-      t("footer.community"),
-      t("footer.webinars"),
-      t("footer.status")
-    ],
-    [t("footer.support")]: [
-      t("footer.contactUs"),
-      t("footer.faqs"),
-      t("footer.training"),
-      t("footer.updates"),
-      t("footer.feedback")
-    ],
-  };
+  // Pages to display in the footer navigation
+  const pageLinks = [
+    { name: t('nav.partnerships'), href: '/#partnerships' },
+    { name: t('nav.aboutUs'), href: '/about-us' },
+    { name: t('nav.privacy'), href: '/privacy-policy' },
+    { name: t('footer.termsOfService'), href: '/terms-of-service' },
+    { name: t('nav.contact'), href: '/contact' },
+  ];
   
   return (
     <footer className="bg-background border-t border-border">
       <div className="container mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-8">
-          {/* Animated section for the logo and description. */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
+          {/* Logo and Description Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -76,73 +60,100 @@ const Footer = () => {
             viewport={{ once: true }}
             className="lg:col-span-2"
           >
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <Calendar className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-foreground">Toorrii</span>
-            </div>
-            <p className="text-muted-foreground mb-6 max-w-md">
+            <Link to="/" className="inline-block mb-6">
+              <motion.div 
+                className={`flex items-center h-16 relative ${isRTL ? '-left-4' : 'left-4'}`}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                <img 
+                  src={ToorriiLogo} 
+                  alt="Toorrii Logo" 
+                  className="h-full w-auto object-contain scale-[2]"
+                />
+              </motion.div>
+            </Link>
+            <p className="text-muted-foreground leading-relaxed max-w-md">
               {t("footer.description")}
+              <br /><br />
+              Toorrii est une solution innovante de gestion de files d'attente qui transforme l'expérience client en offrant un système intelligent et efficace pour gérer les flux de visiteurs dans divers établissements.
             </p>
-            {/* Animated social media links. */}
-            <div className="flex space-x-4">
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  className="w-10 h-10 bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground rounded-lg flex items-center justify-center transition-colors"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-5 h-5" />
-                </motion.a>
-              ))}
-            </div>
           </motion.div>
 
-          {/* Animated footer links, categorized and mapped from the footerLinks object. */}
-          {Object.entries(footerLinks).map(
-            ([category, links], categoryIndex) => (
-              <motion.div
-                key={category}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <h3 className="font-semibold text-foreground mb-4">
-                  {category}
-                </h3>
-                <ul className="space-y-3">
-                  {links.map((link, linkIndex) => (
-                    <motion.li
-                      key={link}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{
-                        duration: 0.4,
-                        delay: categoryIndex * 0.1 + linkIndex * 0.05,
-                      }}
-                      viewport={{ once: true }}
-                    >
-                      <a
-                        href="#"
-                        className="text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {link}
-                      </a>
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
-            )
-          )}
+          {/* Pages Column */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="font-semibold text-foreground mb-4">
+              {t("footer.company")}
+            </h3>
+            <ul className="space-y-3">
+              {pageLinks.map((link, index) => (
+                <motion.li
+                  key={link.name}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.1 + index * 0.05,
+                  }}
+                  viewport={{ once: true }}
+                >
+                  <Link
+                    to={link.href}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Contact Information Column */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="lg:col-span-2"
+          >
+            <h3 className="font-semibold text-foreground mb-4">
+              {t("footer.contactUs")}
+            </h3>
+            <ul className="space-y-4">
+              {contactInfo.map((contact, index) => (
+                <motion.li
+                  key={contact.label}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.2 + index * 0.05,
+                  }}
+                  viewport={{ once: true }}
+                >
+                  <a
+                    href={contact.href}
+                    target={contact.href.startsWith('http') ? '_blank' : undefined}
+                    rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="flex items-center space-x-3 rtl:space-x-reverse text-muted-foreground hover:text-primary transition-colors group"
+                  >
+                    <div className="w-9 h-9 bg-secondary/50 group-hover:bg-primary/20 rounded-lg flex items-center justify-center transition-colors flex-shrink-0">
+                      <contact.icon className="w-4 h-4" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs text-muted-foreground/70">{contact.label}</span>
+                      <span className="text-sm font-medium">{contact.value}</span>
+                    </div>
+                  </a>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
         </div>
 
         {/* Animated bottom section of the footer with copyright and legal links. */}
