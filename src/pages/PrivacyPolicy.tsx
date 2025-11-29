@@ -5,9 +5,11 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/contexts/TranslationContext";
+import { usePrivacyPolicy } from "@/hooks/usePrivacyPolicy";
 
 const PrivacyPolicy = () => {
   const { t } = useTranslation();
+  const { data: privacyData } = usePrivacyPolicy();
   
   return (
     <div className="min-h-screen bg-background">
@@ -28,16 +30,26 @@ const PrivacyPolicy = () => {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              {t('privacyPage.title')}
+              {privacyData?.titre || t('privacyPage.title')}
             </h1>
             <p className="text-muted-foreground mb-8">
-              {t('privacyPage.lastUpdated')} {new Date().toLocaleDateString('en-GB')}
+              {privacyData?.date_creation 
+                ? `${t('privacyPage.lastUpdated')} ${new Date(privacyData.date_creation).toLocaleDateString('en-GB')}`
+                : `${t('privacyPage.lastUpdated')} ${new Date().toLocaleDateString('en-GB')}`
+              }
+              {privacyData?.version && ` - Version ${privacyData.version}`}
             </p>
-            <p className="text-muted-foreground mb-12">
-              {t('privacyPage.intro')}
-            </p>
+            {privacyData?.contenu ? (
+              <div className="text-muted-foreground mb-12 whitespace-pre-line leading-relaxed">
+                {privacyData.contenu}
+              </div>
+            ) : (
+              <>
+                <p className="text-muted-foreground mb-12">
+                  {t('privacyPage.intro')}
+                </p>
 
-            <div className="space-y-12">
+                <div className="space-y-12">
               <section>
                 <h2 className="text-2xl font-semibold mb-4">{t('privacyPage.section1Title')}</h2>
                 <p className="text-muted-foreground leading-relaxed">
@@ -148,6 +160,8 @@ const PrivacyPolicy = () => {
                 </p>
               </section>
             </div>
+              </>
+            )}
           </motion.div>
         </div>
       </main>

@@ -10,21 +10,25 @@ export interface PartnerContactInfo {
 }
 
 export interface Partner {
+  partenaire_id?: string;
   id?: number;
   nom_partenaire: string;
-  description: string;
+  logo?: string;
+  description?: any;
+  adresse?: any;
   email: string;
   telephone: string;
-  adresse: string;
   site_web: string;
+  date_ajout?: string;
   actif?: boolean;
   facebook?: string;
   instagram?: string;
   tiktok?: string;
-  type_partenaire?: 'government' | 'telecom' | 'banking' | 'transport' | 'other';
+  type_partenaire?: any;
   date_deb: string;
   date_fin: string;
   liens_externes?: PartnerLinks;
-  info_contacte?: PartnerContactInfo;
-  priorite_affichage?: number;
+  date_creation_entreprise: string;
+  priorite_affichage: number;
+  image_banniere?: string;
 }

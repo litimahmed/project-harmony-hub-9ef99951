@@ -10,9 +10,7 @@ interface ContactFormData {
 
 export const contactService = {
   async getContactInfo(): Promise<ContactData> {
-    // This should likely be a GET request to a different endpoint to fetch info.
-    // For now, I'm leaving it as is, but focusing on the form submission.
-    return apiClient.get<ContactData>('/admins/contacte/');
+    return apiClient.get<ContactData>('/home/contacte/');
   },
   async sendContactMessage(formData: ContactFormData): Promise<any> {
     return apiClient.post('/admins/contacte/ajouter/', formData);
