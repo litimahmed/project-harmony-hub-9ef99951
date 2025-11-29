@@ -36,18 +36,19 @@ const Header = () => {
   const activeSection = useScrollSpy(['partnerships', 'about', 'privacy', 'contact'], 80);
 
   /**
-   * Handles the click event for the "Partnerships" navigation link.
-   * It smoothly scrolls to the partnerships section if it's on the same page,
+   * Handles the click event for navigation links.
+   * It smoothly scrolls to the section if it's on the same page,
    * otherwise it navigates to the homepage and then scrolls.
    * @param {React.MouseEvent<HTMLAnchorElement>} e - The click event.
+   * @param {string} sectionId - The ID of the section to scroll to.
    */
-  const handlePartnershipsClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
-    const partnershipsSection = document.getElementById('partnerships');
-    if (partnershipsSection) {
-      partnershipsSection.scrollIntoView({ behavior: 'smooth' });
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     } else {
-      window.location.href = '/#partnerships';
+      window.location.href = `/#${sectionId}`;
     }
   };
 
@@ -68,10 +69,10 @@ const Header = () => {
 
   // An array of navigation items to be displayed in the header.
   const navItems = [
-    { name: t('nav.partnerships'), href: '/#partnerships', onClick: handlePartnershipsClick },
-    { name: t('nav.aboutUs'), href: '/about-us' },
-    { name: t('nav.privacy'), href: '/privacy-policy' },
-    { name: t('nav.contact'), href: '/contact' }
+    { name: t('nav.partnerships'), href: '/#partnerships', sectionId: 'partnerships' },
+    { name: t('nav.aboutUs'), href: '/#about', sectionId: 'about' },
+    { name: t('nav.privacy'), href: '/#privacy', sectionId: 'privacy' },
+    { name: t('nav.contact'), href: '/#contact', sectionId: 'contact' }
   ];
 
   return (
@@ -112,7 +113,7 @@ const Header = () => {
                 >
                   <Link
                     to={item.href}
-                    onClick={item.onClick}
+                    onClick={(e) => handleSectionClick(e, item.sectionId)}
                     className={`text-sm transition-colors relative group ${
                       isActive 
                         ? 'text-primary font-bold' 
@@ -170,9 +171,7 @@ const Header = () => {
                         key={item.name}
                         to={item.href}
                         onClick={(e) => {
-                          if (item.onClick) {
-                            item.onClick(e);
-                          }
+                          handleSectionClick(e, item.sectionId);
                           setIsOpen(false);
                         }}
                         className={`text-lg transition-colors ${
