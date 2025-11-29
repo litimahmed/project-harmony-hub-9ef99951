@@ -26,11 +26,11 @@ const contactInfoPrimary = [
   { icon: Mail, label: "Email", value: "contact@toorrii.com", href: "mailto:contact@toorrii.com", color: "text-red-500", bg: "bg-red-50 hover:bg-red-100" },
   { icon: MapPin, label: "Address", value: "Algiers, Algeria", href: "#", color: "text-blue-500", bg: "bg-blue-50 hover:bg-blue-100" },
   { icon: Clock, label: "Hours", value: "9:00 - 17:00", href: "#", color: "text-orange-500", bg: "bg-orange-50 hover:bg-orange-100" },
+  { icon: Globe, label: "Website", value: "www.toorrii.com", href: "https://www.toorrii.com", color: "text-primary", bg: "bg-primary/10 hover:bg-primary/20" },
 ];
 
 // Social links - second column
 const socialLinks = [
-  { icon: Globe, label: "Website", value: "www.toorrii.com", href: "https://www.toorrii.com", color: "text-primary", bg: "bg-primary/10 hover:bg-primary/20" },
   { icon: Facebook, label: "Facebook", value: "/toorrii", href: "https://facebook.com/toorrii", color: "text-blue-600", bg: "bg-blue-50 hover:bg-blue-100" },
   { icon: Instagram, label: "Instagram", value: "@toorrii", href: "https://instagram.com/toorrii", color: "text-pink-600", bg: "bg-pink-50 hover:bg-pink-100" },
   { icon: Linkedin, label: "LinkedIn", value: "/company/toorrii", href: "https://linkedin.com/company/toorrii", color: "text-blue-700", bg: "bg-blue-50 hover:bg-blue-100" },
@@ -57,7 +57,7 @@ const Footer = () => {
   return (
     <footer className="bg-background border-t border-border">
       <div className="container mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 items-center">
           {/* Logo and Description Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
