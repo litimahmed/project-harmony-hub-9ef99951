@@ -90,24 +90,24 @@ const Header = () => {
       className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40"
     >
       <div className="container mx-auto px-6 py-3.5">
-        <div className="flex items-center justify-between gap-4 lg:gap-8">
+        <div className="flex items-center justify-between">
           {/* Animated logo that links to the homepage. */}
           <Link to="/" className="h-14 flex-shrink-0">
             <motion.div 
-              className="flex items-center h-full"
+              className={`flex items-center h-full relative bottom-1 ${isRTL ? '-left-4' : 'left-4'}`}
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.2 }}
             >
               <img 
                 src={ToorriiLogo} 
                 alt="Toorrii Logo" 
-                className="h-12 w-auto object-contain"
+                className="h-full w-auto object-contain scale-[2]"
               />
             </motion.div> 
           </Link>
 
           {/* Desktop navigation links. */}
-          <nav className="hidden lg:flex items-center space-x-8 rtl:space-x-reverse">
+          <nav className="hidden xl:flex items-center space-x-8 rtl:space-x-reverse">
             {navItems.map((item, index) => {
               const isActive = isLinkActive(item.href, item.sectionId);
               return (
@@ -155,7 +155,7 @@ const Header = () => {
             </Button>
             <Button 
               size="default"
-              className="hidden lg:inline-flex gap-2 text-sm font-medium"
+              className="hidden xl:inline-flex gap-2 text-sm font-medium"
             >
               <LogIn className="w-4 h-4" />
               {t('nav.signin')}
@@ -163,7 +163,7 @@ const Header = () => {
 
             {/* Mobile menu, which is a sheet that slides in from the right. */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild className="lg:hidden">
+              <SheetTrigger asChild className="xl:hidden">
                 <Button variant="ghost" size="icon">
                   <Menu className="h-5 w-5 text-primary" />
                 </Button>
