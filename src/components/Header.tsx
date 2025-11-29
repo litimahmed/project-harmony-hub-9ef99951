@@ -90,18 +90,18 @@ const Header = () => {
       className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/40"
     >
       <div className="container mx-auto px-6 py-3.5">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4 lg:gap-8">
           {/* Animated logo that links to the homepage. */}
-          <Link to="/" className="h-14">
+          <Link to="/" className="h-14 flex-shrink-0">
             <motion.div 
-              className={`flex items-center h-full relative bottom-1 ${isRTL ? '-left-4' : 'left-4'}`}
+              className="flex items-center h-full"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.2 }}
             >
               <img 
                 src={ToorriiLogo} 
                 alt="Toorrii Logo" 
-                className="h-full w-auto object-contain scale-[2]"
+                className="h-12 w-auto object-contain"
               />
             </motion.div> 
           </Link>

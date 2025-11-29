@@ -25,20 +25,23 @@ export const useScrollSpy = (sectionIds: string[], offset: number = 0): string =
     // Create a new IntersectionObserver
     observer.current = new IntersectionObserver(
       (entries) => {
-        // Find the entry with the highest intersection ratio
+        // Find the section that is most prominently in view
         const visibleEntries = entries.filter(entry => entry.isIntersecting);
         
         if (visibleEntries.length > 0) {
-          // Sort by intersection ratio (most visible section)
-          const mostVisible = visibleEntries.reduce((prev, current) => 
-            current.intersectionRatio > prev.intersectionRatio ? current : prev
-          );
-          setActiveSection(mostVisible.target.id);
+          // Find the section whose top edge is closest to the top of the viewport
+          const sorted = visibleEntries.sort((a, b) => {
+            const aTop = a.boundingClientRect.top;
+            const bTop = b.boundingClientRect.top;
+            // Prefer sections that are near or just past the top of viewport
+            return Math.abs(aTop) - Math.abs(bTop);
+          });
+          setActiveSection(sorted[0].target.id);
         }
       },
       { 
-        rootMargin: `-${offset}px 0px -60% 0px`,
-        threshold: [0, 0.25, 0.5, 0.75, 1]
+        rootMargin: `-${offset + 100}px 0px -50% 0px`,
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5]
       }
     );
 
