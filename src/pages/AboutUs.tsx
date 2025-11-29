@@ -30,165 +30,100 @@ const AboutUs = () => {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              {apiData?.title || t('aboutPage.title')}
+              {apiData?.titre || t('aboutPage.title')}
             </h1>
             
             <div className="space-y-12">
-              <section>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {apiData?.intro || t('aboutPage.intro')}
-                </p>
-              </section>
+              {apiData?.contenu && (
+                <section>
+                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
+                    {apiData.contenu}
+                  </p>
+                </section>
+              )}
 
-              <section>
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <Target className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-semibold mb-3">{apiData?.missionTitle || t('aboutPage.missionTitle')}</h2>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {apiData?.missionText || t('aboutPage.missionText')}
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <section>
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <Eye className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-semibold mb-3">{apiData?.visionTitle || t('aboutPage.visionTitle')}</h2>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {apiData?.visionText || t('aboutPage.visionText')}
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <section>
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <Award className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-semibold mb-3">{apiData?.valuesTitle || t('aboutPage.valuesTitle')}</h2>
-                    <div className="space-y-4 text-muted-foreground">
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-2">{apiData?.innovationTitle || t('aboutPage.innovationTitle')}</h3>
-                        <p className="leading-relaxed">
-                          {apiData?.innovationText || t('aboutPage.innovationText')}
-                        </p>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-2">{apiData?.accessibilityTitle || t('aboutPage.accessibilityTitle')}</h3>
-                        <p className="leading-relaxed">
-                          {apiData?.accessibilityText || t('aboutPage.accessibilityText')}
-                        </p>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-2">{apiData?.reliabilityTitle || t('aboutPage.reliabilityTitle')}</h3>
-                        <p className="leading-relaxed">
-                          {apiData?.reliabilityText || t('aboutPage.reliabilityText')}
-                        </p>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-2">{apiData?.localExpertiseTitle || t('aboutPage.localExpertiseTitle')}</h3>
-                        <p className="leading-relaxed">
-                          {apiData?.localExpertiseText || t('aboutPage.localExpertiseText')}
-                        </p>
-                      </div>
+              {apiData?.mission && (
+                <section>
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <Target className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-semibold mb-3">{t('aboutPage.missionTitle')}</h2>
+                      <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                        {apiData.mission}
+                      </p>
                     </div>
                   </div>
-                </div>
-              </section>
-
-              <section>
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <Users className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-semibold mb-3">{apiData?.whoWeServeTitle || t('aboutPage.whoWeServeTitle')}</h2>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      {apiData?.whoWeServeText || t('aboutPage.whoWeServeText')}
-                    </p>
-                    <ul className="list-disc list-inside space-y-2 text-muted-foreground ltr:ml-4 rtl:mr-4">
-                      {apiData?.services ? (
-                        apiData.services.map((service, index) => (
-                          <li key={index}>{service}</li>
-                        ))
-                      ) : (
-                        <>
-                          <li>{t('aboutPage.service1')}</li>
-                          <li>{t('aboutPage.service2')}</li>
-                          <li>{t('aboutPage.service3')}</li>
-                          <li>{t('aboutPage.service4')}</li>
-                          <li>{t('aboutPage.service5')}</li>
-                          <li>{t('aboutPage.service6')}</li>
-                        </>
-                      )}
-                    </ul>
-                  </div>
-                </div>
-              </section>
-
-              <section className="pt-8 border-t border-border">
-                <h2 className="text-2xl font-semibold mb-4">{apiData?.whyChooseTitle || t('aboutPage.whyChooseTitle')}</h2>
-                <div className="space-y-4 text-muted-foreground">
-                  <p className="leading-relaxed">
-                    <span className="font-semibold text-foreground">{apiData?.provenTrackLabel || t('aboutPage.provenTrackLabel')}</span> {apiData?.provenTrackText || t('aboutPage.provenTrackText')}
-                  </p>
-                  <p className="leading-relaxed">
-                    <span className="font-semibold text-foreground">{apiData?.localSupportLabel || t('aboutPage.localSupportLabel')}</span> {apiData?.localSupportText || t('aboutPage.localSupportText')}
-                  </p>
-                  <p className="leading-relaxed">
-                    <span className="font-semibold text-foreground">{apiData?.complianceLabel || t('aboutPage.complianceLabel')}</span> {apiData?.complianceText || t('aboutPage.complianceText')}
-                  </p>
-                  <p className="leading-relaxed">
-                    <span className="font-semibold text-foreground">{apiData?.scalabilityLabel || t('aboutPage.scalabilityLabel')}</span> {apiData?.scalabilityText || t('aboutPage.scalabilityText')}
-                  </p>
-                </div>
-              </section>
-
-              {apiData?.histoire && (
-                <section className="pt-8 border-t border-border">
-                  <h2 className="text-2xl font-semibold mb-4">Our History</h2>
-                  <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
-                    {apiData.histoire}
-                  </p>
                 </section>
               )}
 
-              {apiData?.equipe && (
-                <section className="pt-8 border-t border-border">
-                  <h2 className="text-2xl font-semibold mb-4">Our Team</h2>
-                  <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
-                    {apiData.equipe}
-                  </p>
+              {apiData?.vision && (
+                <section>
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <Eye className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-semibold mb-3">{t('aboutPage.visionTitle')}</h2>
+                      <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                        {apiData.vision}
+                      </p>
+                    </div>
+                  </div>
                 </section>
               )}
 
-              {apiData?.realisations && (
+              {apiData?.valeurs && (
+                <section>
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <Award className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-semibold mb-3">{t('aboutPage.valuesTitle')}</h2>
+                      <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                        {apiData.valeurs}
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {apiData?.qui_nous_servons && (
+                <section>
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <Users className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-semibold mb-3">{t('aboutPage.whoWeServeTitle')}</h2>
+                      <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                        {apiData.qui_nous_servons}
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              )}
+
+              {apiData?.pourquoi_choisir_nous && (
                 <section className="pt-8 border-t border-border">
-                  <h2 className="text-2xl font-semibold mb-4">Our Achievements</h2>
+                  <h2 className="text-2xl font-semibold mb-4">{t('aboutPage.whyChooseTitle')}</h2>
                   <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
-                    {apiData.realisations}
+                    {apiData.pourquoi_choisir_nous}
                   </p>
                 </section>
               )}
 
               <section className="pt-8 border-t border-border">
-                <h2 className="text-2xl font-semibold mb-4">{apiData?.getInTouchTitle || t('aboutPage.getInTouchTitle')}</h2>
+                <h2 className="text-2xl font-semibold mb-4">{t('aboutPage.getInTouchTitle')}</h2>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  {apiData?.getInTouchText || t('aboutPage.getInTouchText')}
+                  {t('aboutPage.getInTouchText')}
                 </p>
                 <div className="space-y-2 text-muted-foreground">
-                  <p>{apiData?.email || t('aboutPage.email')}</p>
-                  <p>{apiData?.phone || t('aboutPage.phone')}</p>
-                  <p>{apiData?.address || t('aboutPage.address')}</p>
+                  <p>{t('aboutPage.email')}</p>
+                  <p>{t('aboutPage.phone')}</p>
+                  <p>{t('aboutPage.address')}</p>
                 </div>
               </section>
             </div>
