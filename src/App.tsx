@@ -20,6 +20,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import AboutUs from "./pages/AboutUs";
 import ContactUsPage from "./pages/ContactUs";
 import PartnerDetail from "./pages/PartnerDetail";
+import TermsOfService from "./pages/TermsOfService";
 
 /**
  * @const {QueryClient} queryClient
@@ -52,6 +53,7 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/partner/:partnerId" element={<PartnerDetail />} />

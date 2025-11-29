@@ -43,6 +43,9 @@ const Header = () => {
    * @param {string} sectionId - The ID of the section to scroll to.
    */
   const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    // If no sectionId, let the default navigation happen (for page routes)
+    if (!sectionId) return;
+    
     e.preventDefault();
     const section = document.getElementById(sectionId);
     if (section) {
@@ -57,14 +60,16 @@ const Header = () => {
    * For homepage sections: checks scroll position
    * For other pages: checks current route
    */
-  const isLinkActive = (href: string) => {
+  const isLinkActive = (href: string, sectionId: string) => {
+    // For page routes (non-section links)
+    if (!sectionId) {
+      return location.pathname === href;
+    }
     // For section links on homepage
     if (href.startsWith('/#')) {
-      const sectionId = href.replace('/#', '');
       return location.pathname === '/' && activeSection === sectionId;
     }
-    // For page routes
-    return location.pathname === href;
+    return false;
   };
 
   // An array of navigation items to be displayed in the header.
@@ -72,6 +77,7 @@ const Header = () => {
     { name: t('nav.partnerships'), href: '/#partnerships', sectionId: 'partnerships' },
     { name: t('nav.aboutUs'), href: '/#about', sectionId: 'about' },
     { name: t('nav.privacy'), href: '/#privacy', sectionId: 'privacy' },
+    { name: t('footer.termsOfService'), href: '/terms-of-service', sectionId: '' },
     { name: t('nav.contact'), href: '/#contact', sectionId: 'contact' }
   ];
 
@@ -103,7 +109,7 @@ const Header = () => {
           {/* Desktop navigation links. */}
           <nav className="hidden lg:flex items-center space-x-8 rtl:space-x-reverse">
             {navItems.map((item, index) => {
-              const isActive = isLinkActive(item.href);
+              const isActive = isLinkActive(item.href, item.sectionId);
               return (
                 <motion.div 
                   key={item.name}
@@ -165,7 +171,7 @@ const Header = () => {
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                 <nav className="flex flex-col space-y-6 mt-8">
                   {navItems.map((item) => {
-                    const isActive = isLinkActive(item.href);
+                    const isActive = isLinkActive(item.href, item.sectionId);
                     return (
                       <Link
                         key={item.name}
