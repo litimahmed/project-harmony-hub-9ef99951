@@ -155,7 +155,7 @@ const Header = () => {
             </Button>
             <Button 
               size="default"
-              className="hidden xl:inline-flex gap-2 text-sm font-medium"
+              className="hidden sm:inline-flex gap-2 text-sm font-medium"
             >
               <LogIn className="w-4 h-4" />
               {t('nav.signin')}
